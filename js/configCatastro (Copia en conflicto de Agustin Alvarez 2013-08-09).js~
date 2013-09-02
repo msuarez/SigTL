@@ -1,0 +1,303 @@
+/**
+	Definiciones de variables
+	Armado y definición de mapas y capas
+**/
+/*
+<script src="./OpenLayers-2.11/OpenLayers.js" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/js?v=3.3&amp;sensor=false"></script>
+*/
+var urlWMS = '/cgi-bin/mapserv?MAP=/var/www/GisTL/maps/';		// url al Web Map Service
+var mapaTL ='GisTL.map';												// nombre del mapa de TL
+var centro = new OpenLayers.LonLat(-6981350.02511, -4296962.45231);							
+var cVectores;
+var olMap;
+
+function init() {
+			//opciones para la capa contorno de TL
+			var opPartido =	{layers:'Partido', 				attribution: 'Partido de T. Lauquen', transparent: true, isBaseLayer:true, reproject:true};
+			//opciones para la capa Circunscripción
+			var opCircuns =	{layers: 'Circunscripcion',		attribution: 'Circunscripción',		transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa parcelas rurales de TL
+			var opPRurales = {layers: 'Parcelas Rurales',	attribution: 'Parcelas Rurales',	transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa divicion parcelas rurales de TL
+			var opDPR ={		layers: 'Div P Rurales',	attribution: 'Div Parc Rurales',	transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa secciones de TL
+			var opSecciones ={	layers: 'Secciones',		attribution: 'Secciones',			transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa Chacras
+			var opChacras ={	layers: 'Chacras',			attribution: 'Chacras',				transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa quintas de TL
+			var opQuintas ={	layers: 'Quintas',			attribution: 'Quintas',				transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa Fracciones
+			var opFracciones ={	layers: 'Fracciones',		attribution: 'Fracciones',			transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa Manzanas
+			var opManzanas ={	layers: 'Manzanas',			attribution: 'Manzanas',			transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa C Macizo
+			var opCMac ={		layers: 'C Macizo',			attribution: 'C Macizo',			transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa parcelas de TL
+			var opParcelas ={	layers: 'Parcelas',			attribution: 'Parcelas',			transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa Div parcelas de TL
+			var opDP ={	layers: 'Div Parcelas',				attribution: 'Div Parcelas',		transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa Lotes
+			var opLotes ={	layers: 'Lotes',				attribution: 'Lotes',				transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa cota Lotes
+			var opCLotes ={	layers: 'C Lotes',				attribution: 'cota lotes',			transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa cota parcelas
+			var opCParcelas ={	layers: 'C Parcelas',		attribution: 'C Parcelas',			transparent: true, 	isBaseLayer:false, reproject:true};		
+			//opciones para la capa cota division parcelas
+			var opCDP ={	layers: 'C Div Parc',			attribution: 'C Div Parc',			transparent: true, 	isBaseLayer:false, reproject:true};		
+			//opciones para la capa areas ferrocarril
+/*			var opAFFCC ={	layers: 'Areas FFCC',			attribution: 'Areas FFCC',			transparent: true, 	isBaseLayer:false, reproject:true};		
+			//opciones para la capa anchos de calle
+			var opACalle ={	layers: 'Ancho Calle',			attribution: 'Anchos de calle',		transparent: true, 	isBaseLayer:false, reproject:true};		
+			//opciones para la capa Rios
+			var opRios ={	layers: 'Rios',	 				attribution: 'Rios',				transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa espacios verdes de TL
+			var opVerde ={	layers: 'Espacio_verde',		attribution: 'Espacios Verdes',		transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa vias de TL
+			var opVias ={	layers: 'Vias',	 				attribution: 'Vias',				transparent: true, 	isBaseLayer:false, reproject:true};		
+			//opciones para la capa red vial
+			var opVial ={	layers: 'Vial',	 				attribution: 'Vial',				transparent: true, 	isBaseLayer:false, reproject:true};		
+			//opciones para la capa rutas de TL
+			var opRutas ={	layers: 'Rutas',				attribution: 'Rutas',				transparent: true, 	isBaseLayer:false, reproject:true};
+			//opciones para la capa anexion
+			var opAnex ={	layers: 'Anexion', 				attribution: 'Anexion',				transparent: true, 	isBaseLayer:false, reproject:true};		
+			//opciones para la capa alta tension
+			var opATens ={	layers: 'Alta_Tension',			attribution: 'Alta tension',		transparent: true, 	isBaseLayer:false, reproject:true};				
+			//opciones para la capa topografia
+			var opTopo ={	layers: 'Topografia',	 		attribution: 'Topografia',			transparent: true, 	isBaseLayer:false, reproject:true};				
+*/			
+			//proyecciones utilizadas en el mapa y las capas 																			
+			var projOlMap = new OpenLayers.Projection('EPSG:4326'); 							// projection a usar por el map OpenLayers
+			var projDatosTL = new OpenLayers.Projection('EPSG:22195'); 							// projection utilizado por shape y datos externos de TL
+			
+			var misBounds=new OpenLayers.Bounds(-11212554.979718, -7900763.928605, -2814697.664418, -2315152.041423);
+			
+			
+			//opciones para el mapa de OL
+			var opOlMap = {maxResolution: 'auto', units: 'm', controls:[], projection: projOlMap, displayProjection: projOlMap, maxExtent: misBounds};
+							
+			// mapa OpenLayers a usar para mostrar las diferentes capas
+			olMap = new OpenLayers.Map(	'map', opOlMap);	
+			var cPartido = new OpenLayers.Layer.WMS('Partido', urlWMS+mapaTL, opPartido);
+			var	cCircuns= new OpenLayers.Layer.WMS(	'Circunscripcion', 	urlWMS+mapaTL, opCircuns),
+			cPRurales= new OpenLayers.Layer.WMS(	'Parcelas Rurales', urlWMS+mapaTL, opPRurales), 
+			cDPR = new OpenLayers.Layer.WMS(		'Div P Rurales', 	urlWMS+mapaTL, opDPR), 
+			cSecciones = new OpenLayers.Layer.WMS(	'Secciones', 		urlWMS+mapaTL, opSecciones), 
+			cChacras = new OpenLayers.Layer.WMS(	'Chacras', 			urlWMS+mapaTL, opChacras), 
+			cQuintas = new OpenLayers.Layer.WMS(	'Quintas', 			urlWMS+mapaTL, opQuintas), 
+			cFracciones = new OpenLayers.Layer.WMS(	'Fracciones', 		urlWMS+mapaTL, opFracciones), 
+			cManzanas = new OpenLayers.Layer.WMS(	'Manzanas', 		urlWMS+mapaTL, opManzanas), 
+			cCMac = new OpenLayers.Layer.WMS( 		'C Macizo', 		urlWMS+mapaTL, opCMac), 
+			cParcelas= new OpenLayers.Layer.WMS(	'Parcelas', 		urlWMS+mapaTL, opParcelas), 
+			cDP= new OpenLayers.Layer.WMS( 			'Div Parcelas', 	urlWMS+mapaTL, opDP), 
+			cLotes= new OpenLayers.Layer.WMS(		'Lotes', 			urlWMS+mapaTL, opLotes), 								
+			cCLotes= new OpenLayers.Layer.WMS(		'C Lotes', 			urlWMS+mapaTL, opCLotes),
+			cCParcelas= new OpenLayers.Layer.WMS(	'C Parcelas', 		urlWMS+mapaTL, opCParcelas),				
+			cCDP= new OpenLayers.Layer.WMS( 		'C Div Parc', 		urlWMS+mapaTL, opCDP);/*,
+			cAFFCC= new OpenLayers.Layer.WMS( 		'Areas FFCC', 		urlWMS+mapaTL, opAFFCC),
+			cACalle= new OpenLayers.Layer.WMS( 		'Ancho Calle', 		urlWMS+mapaTL, opACalle),
+			cRios= new OpenLayers.Layer.WMS( 		'Rios', 			urlWMS+mapaTL, opRios), 
+			cVerde= new OpenLayers.Layer.WMS( 		'Espacio_verde',	urlWMS+mapaTL, opVerde), 
+			cVias= new OpenLayers.Layer.WMS( 		'Vias', 			urlWMS+mapaTL, opVias), 
+			cVial= new OpenLayers.Layer.WMS( 		'Vial', 			urlWMS+mapaTL, opVial), 
+			cRutas= new OpenLayers.Layer.WMS( 		'Rutas', 			urlWMS+mapaTL, opRutas),
+			cAnex= new OpenLayers.Layer.WMS( 		'Anexion', 			urlWMS+mapaTL, opAnex),
+			cATens= new OpenLayers.Layer.WMS( 		'Alta_Tension',		urlWMS+mapaTL, opATens),
+			cTopo= new OpenLayers.Layer.WMS( 		'Topografia',		urlWMS+mapaTL, opTopo);	
+*/
+			//Pongo algunas capas como invisibles para agilizar la carga
+			cSecciones.setVisibility(false);
+			cCircuns.setVisibility(false);
+			cPRurales.setVisibility(false);
+			cDPR.setVisibility(false);
+			cChacras.setVisibility(false);
+			cQuintas.setVisibility(false);
+			cFracciones.setVisibility(false);
+			cManzanas.setVisibility(false);
+			cCMac.setVisibility(false);
+			cParcelas.setVisibility(false);
+			cDP.setVisibility(false);
+			cLotes.setVisibility(false);
+			cCLotes.setVisibility(false);
+			cCParcelas.setVisibility(false);
+			cCDP.setVisibility(false);
+/*			cAFFCC.setVisibility(false);
+			cACalle.setVisibility(false);
+			cRios.setVisibility(false);
+			cVerde.setVisibility(false);
+			cVias.setVisibility(false);
+			cVial.setVisibility(false);
+			cRutas.setVisibility(false);
+			cAnex.setVisibility(false);
+			cATens.setVisibility(false);
+			cTopo.setVisibility(false);
+*/			
+			//Agrego las capas a visualizar en el mapa
+			//Primero las de catastro
+			olMap.addLayer(cPartido); 
+			olMap.addLayer(cCircuns); 
+			olMap.addLayer(cSecciones); 
+			olMap.addLayer(cChacras); 
+			olMap.addLayer(cQuintas); 
+			olMap.addLayer(cFracciones); 
+			olMap.addLayer(cManzanas); 
+			olMap.addLayer(cParcelas); 
+			olMap.addLayer(cDP); 
+			olMap.addLayer(cPRurales); 
+			olMap.addLayer(cDPR); 
+			olMap.addLayer(cLotes); 
+			
+			//Cotas
+//			olMap.addLayer(cCMac); 
+//			olMap.addLayer(cCParcelas); 
+//			olMap.addLayer(cCDP); 
+//			olMap.addLayer(cCLotes); 
+//			olMap.addLayer(cACalle); 
+			
+			//Transporte
+//			olMap.addLayer(cAFFCC); 
+//			olMap.addLayer(cVias); 
+//			olMap.addLayer(cRutas); 
+//			olMap.addLayer(cVial); 
+			
+			//RRNN y físicos
+//			olMap.addLayer(cRios); 
+//			olMap.addLayer(cVerde); 
+//			olMap.addLayer(cTopo); 
+			//Infraestructura
+//			olMap.addLayer(cAnex); 
+//			olMap.addLayer(cATens);
+			
+			//Capa satelite de google
+ 			var satelite = new OpenLayers.Layer.Google	("Ggl-Satélite", 
+														{	type: google.maps.MapTypeId.SATELLITE, 
+															numZoomLevels: 20,
+															isBaseLayer: true
+														}
+													);
+			//Capa Rutas de google
+			var mapa = new OpenLayers.Layer.Google	("Ggl-Mapa", 
+													{	numZoomLevels: 20,
+														isBaseLayer: true
+													}
+												);
+			//Capa Terreno de google									
+			var fisico = new OpenLayers.Layer.Google("Ggl-Físico",
+													{	type: google.maps.MapTypeId.TERRAIN,
+														numZoomLevels: 20,
+														isBaseLayer: true
+													}
+												);
+			var osm = new OpenLayers.Layer.OSM();
+			olMap.addLayers([osm, mapa, fisico, satelite ]);
+			
+/*
+//------------------- prueba con capa de marcadores
+			var cMarcas = new OpenLayers.Layer.Markers( "Marcadores" );									//Creo una Capa de marcadores llamada marcadores
+			olMap.addLayer(cMarcas);																	//la agrego al mapa
+			var size = new OpenLayers.Size(22,22);														//defino el tamaño que tendrá el icono del marcador
+			var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);									//defino el desplazamiento del icono respecto de la coordenada de ubicación
+			var icono = new OpenLayers.Icon("/test/imagenes/foco.png",size,offset);		//defino la imagen del marcador con ruta, tamaño y desplazamiento
+			//coordenada del marcador (usada como centro del mapa)						
+			
+			cMarcas.addMarker(new OpenLayers.Marker(centro, icono));									//agrego elmarcador a la c de marcas
+
+//------------------- prueba con capas vectoriales
+
+			cVectores = new OpenLayers.Layer.Vector('Anotaciones(capa vectorial)');
+			var feature_point_1 = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(-6971210.17011, -4238946.74785 ),
+										{
+										'location': 'Norte TL',
+										'description': "Extremo norte del Partido de Trenque Lauquen"
+										}
+									);
+			var coordPoint = new OpenLayers.Geometry.Point(-6985146.55693, -4302616.762);
+			var feature_point_2 = new OpenLayers.Feature.Vector(
+										coordPoint,
+												{
+												'location': 'Rotonda RN 5 y RN 33',
+												'description': 'Rotonda de rutas nacionales 5 y 33, destacamento policía caminera.'
+												}
+									);
+	
+			var feature_polygon = new OpenLayers.Feature.Vector(//Parque municipal
+																	new OpenLayers.Geometry.Polygon(
+																		new OpenLayers.Geometry.LinearRing([
+																			new OpenLayers.Geometry.Point(-6982234.42343, -4297118.61077),
+																			new OpenLayers.Geometry.Point(-6981878.1572, -4297694.8743),
+																			new OpenLayers.Geometry.Point(-6981927.48294, -4297726.97188),
+																			new OpenLayers.Geometry.Point(-6981968.62758, -4297663.97105),
+																			new OpenLayers.Geometry.Point(-6982171.12597, -4297776.53652),
+																			new OpenLayers.Geometry.Point(-6982302.0244, -4297626.20041),
+																			new OpenLayers.Geometry.Point(-6982550.44474, -4297743.24461),
+																			new OpenLayers.Geometry.Point(-6982883.54297, -4297522.29383)
+																			//el poligono cierra automaticamente porque es un linear ring
+																		])
+																	),
+																	{
+																	'location': 'Parque Municipal',
+																	'description': 'Paseo público con lago artificial, anfiteatro, museo histórico, etc.'
+																	}
+																);
+			cVectores.addFeatures([feature_point_1, feature_point_2, feature_polygon]);
+			function selected_feature(event){
+				//Limpiar el contenedor que muestra la info
+				document.getElementById('footer').innerHTML = '';
+				//mostrar la característica seleccionada (pasada desde el evento del objeto)
+				var display_text = 'Selección: '+ '<br><strong>' + event.feature.attributes.location + '</strong>'	+ ': ' + event.feature.attributes.description + '<hr/>';
+				document.getElementById('footer').innerHTML =display_text;
+				//mostrar todas las características seleccionadas
+				document.getElementById('footer').innerHTML += 'Características Seleccionadas: <br>';
+				//recorrer el arreglo de caracteristicas seleccionadas
+				for(var i=0; i<cVectores.selectedFeatures.length; i++){
+					document.getElementById('footer').innerHTML +=	cVectores.selectedFeatures[i].attributes.location + ' | ';
+				}
+			}
+			
+			function unselected_feature(event){
+				var display_text = event.feature.attributes.location + ' Deseleccionada!' + '<hr />';
+				document.getElementById('footer').innerHTML = display_text;
+				//mostrar todas las caracteristicas seleccionadas
+				document.getElementById('footer').innerHTML += 'Seleccionar Características: <br>';
+				//recorrer el arreglo de caracteristicas seleccionadas
+				for(var i=0; i<cVectores.selectedFeatures.length; i++){
+					document.getElementById('footer').innerHTML += cVectores.selectedFeatures[i].attributes.location + ' | ';
+				}
+			}			
+			cVectores.events.register('featureselected', this, selected_feature);
+			cVectores.events.register('featureunselected', this, unselected_feature);
+			olMap.addLayer(cVectores);			
+*/				
+			var info = new OpenLayers.Control.WMSGetFeatureInfo({
+				url: urlWMS+mapaTL, 
+				title: 'Identificar caracteristicas haciendo click',
+				queryVisible: true,
+				eventListeners: {
+					getfeatureinfo: function(event) {
+						olMap.addPopup(new OpenLayers.Popup.FramedCloud(
+							"cartel", 
+							olMap.getLonLatFromPixel(event.xy),
+							null,
+							event.text,
+							null,
+							true
+						));
+					}
+				}
+			});
+			olMap.addControl(info);
+			info.activate();
+			olMap.addControl(new OpenLayers.Control.LayerSwitcher({'ascending':true}));
+			olMap.addControl(new OpenLayers.Control.MousePosition());
+			olMap.addControl(new OpenLayers.Control.ScaleLine());
+			olMap.addControl(new OpenLayers.Control.OverviewMap());
+			olMap.addControl(new OpenLayers.Control.Permalink());
+			olMap.addControl(new OpenLayers.Control.KeyboardDefaults());
+			olMap.addControl(new OpenLayers.Control.Navigation());
+			olMap.addControl(new Openlayers.Control.PanZoom());	
+//			var ctrlSelFeat = new OpenLayers.Control.SelectFeature(cVectores,{multiple: false,toggle: true,multipleKey: 'shiftKey'});
+//			olMap.addControl(ctrlSelFeat);
+//			olMap.addControl(new OpenLayers.Control.EditingToolbar(cVectores));
+//			ctrlSelFeat.activate();
+			olMap.setCenter(centro, 9);
+}		

@@ -1,0 +1,169 @@
+
+html, body { 
+		padding: 0;
+		margin:0;
+		height: 100%;
+		font-family: Verdana,Arial,sans-serif;
+}
+
+#contenedor {
+		display: table;
+		width:100%; 
+		height:96%;
+		margin:0;
+
+}
+
+#cabecera {
+			width: auto;
+			height: 70px;
+			background-color: #A3E0FF;
+			border-width:0.5px;
+			border-color: #CCC;
+			border-style: solid;
+			/*Hago los bordes redondeado, sin necesidad de usar imagenes*/
+			border-radius:5px;
+			-moz-border-radius:5px; /* Firefox */
+			-webkit-border-radius:5px; /* Safari y Chrome */ 
+}
+
+.titulo{
+			width:350px;
+			height:70px;
+			line-height:70px;
+
+			font-size:2em;
+			font-weight: bold;
+			color:#FFF;
+			float: left;
+			padding-left:10px;
+}
+
+/*
+h2.textocabecera{
+	color:#FFF;
+	font-family: Verdana,Arial,sans-serif;
+	font-size:1.2em;
+
+	padding-bottom:3px;
+
+}
+*/
+.logo{
+	float: right;
+    width: 300px;
+    height: 80%;
+    text-align: right;
+    padding-top: 4px;
+    padding-right: 20px;
+}
+			
+#barizq {
+			width:15%;
+			height:100%;
+			float: left;
+}
+
+#accordion {
+			height:100%;
+}
+#map {
+		width: 84%;
+		font-family: Verdana,Arial,sans-serif;
+		border-width:1px;
+		border-color: #CCC;
+		border-style: solid;
+		float:right;
+		/*Hago los bordes redondeado, sin necesidad de usar imagenes*/
+		border-radius:5px;
+		-moz-border-radius:5px; /* Firefox */
+		-webkit-border-radius:5px; /* Safari y Chrome */ 
+}
+
+#comunicador_login{
+		float: right;
+		width:84%;
+		height:170px;
+		line-height:170px;
+		text-align:center;
+		border-width:1px;
+		border-color: #CCC;
+		border-style: solid;
+		font-size:2em;
+		  
+		color:#0A0F0B;
+		
+}
+
+#footer {
+		width:100%;
+		height:auto; /*18px;*/
+		border-width:0.5px;
+		border-color: #CCC;
+		border-style: solid;
+		float:left;
+		background-color: #A3E0FF;/*#8fbc8f;*/
+		font-family: Verdana,Arial,sans-serif;
+		font-size:10px;
+		padding-top: 10px;
+		/*Hago los bordes redondeado, sin necesidad de usar imagenes*/
+		border-radius:5px;
+		-moz-border-radius:5px; /* Firefox */
+		-webkit-border-radius:5px; /* Safari y Chrome */ 
+}
+
+.separador_invisible{
+	width:100%;
+	height:1px;
+	float:left;
+}
+	
+.menu_body {
+			width: auto;
+			height: 55%;
+}
+
+h3 { 
+	width:auto;
+	height:30px;
+	padding-left:5px;
+	text-align:left;
+	font-size: 2px;
+	}
+
+h3 a.linkmenu {
+	width:auto;
+	height:14px;
+}
+
+.parrafo {
+	font-size:13px;
+	text-align:left;
+}
+
+#cabecera img.logo {
+	float:right; 
+}
+	
+
+.olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint {
+    visibility:hidden;
+}
+/*
+.Map_2_OpenLayers_ViewPort.olMapViewport {
+    visibility:hidden;
+}
+.Map_2_GMapContainer {
+    visibility:hidden;
+}*/
+.olLayerGoogleCopyright{
+    visibility:hidden;
+}
+
+.tierra{
+			padding-left:35%;
+			/*Hago los bordes redondeado, sin necesidad de usar imagenes*/
+			border-radius:15px;
+			-moz-border-radius:5px; /* Firefox */
+			-webkit-border-radius:5px; /* Safari y Chrome */ 
+}
