@@ -13,17 +13,17 @@ Implementa el manejo de datos mediante el acceso a una BD postgresql.
 	private $user;				//nombre del usuario que intenta establecer la conección
 	private $pass;				//clave del usuario que intenta establecer la conección
 	private $modificar=0;		//no me acuerdo para que puse esto
-	private str_conexion		//cadena de conexion 
+	private $str_conexion;		//cadena de conexion 
 
 
 /*** Funciones: ***/
 	public function __construct ()	{
 	// constructor de objetos bd
-	this->$host='localhost';
-	this->$db_name='GisTL';
-	this->$port='5432';
-	this->$user='user';
-	this->$pass='user';
+	$this->$host='localhost';
+	$this->$db_name='GisTL';
+	$this->$port='5432';
+	$this->$user='user';
+	$this->$pass='user';
 	}
 	public function bd (){}
 }
