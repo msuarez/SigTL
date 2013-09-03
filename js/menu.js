@@ -48,7 +48,7 @@ var circ = $("#txtCirc").val();	//le asigno a la variable parcela el texto conte
 								olMap.addControl(control);
 								control.activate();
 */								
-								olMap.addLayer(layerparcelaConsulta); 							//2° lo agrego al mapa de la pagina
+								olMap.addLayer(layerparcelaConsulta); 							//2ï¿½ lo agrego al mapa de la pagina
 								var marco = new OpenLayers.Bounds();
 								alert(layerparcelaConsulta.getDataExtent());
 								marco = layerparcelaConsulta.getDataExtent();
@@ -61,35 +61,35 @@ return false;					//retorna falso para detener la ejecucion del form que llama a
 
 function menuSalud(){
 		
-	alert("Mapa mostrando ubicaciones de centros de salud con popups donde se explique para cada centro cuales son los servicios que presta, areas de acción, eventos y avisos estacionales como 'Atención: esta vigente la temporada de aplicación de la vacuna antigripal para ancianos y niños.', datos de contacto del centro, direccion etc.");
+	alert("Mapa mostrando ubicaciones de centros de salud con popups donde se explique para cada centro cuales son los servicios que presta, areas de acciï¿½n, eventos y avisos estacionales como 'Atenciï¿½n: esta vigente la temporada de aplicaciï¿½n de la vacuna antigripal para ancianos y niï¿½os.', datos de contacto del centro, direccion etc.");
 	
 	return false;
 }
 
 function menuTurismo(){
 		
-	alert("Mapa que presentará visualmente: areas de recreación, pesca deportiva, alojamientos, gastronomía, oficinas de informes, servicios al viajero, estaciones de servicio, servicios de salud, cajeros automáticos, cine, teatro, campings, medios de transporte, etc.");
+	alert("Mapa que presentarï¿½ visualmente: areas de recreaciï¿½n, pesca deportiva, alojamientos, gastronomï¿½a, oficinas de informes, servicios al viajero, estaciones de servicio, servicios de salud, cajeros automï¿½ticos, cine, teatro, campings, medios de transporte, etc.");
 	
 	return false;
 }
 
 function menuContribuyentes(){
 		
-	alert("Mapa que permitiría localizar visualmente las propiedadeds a nombre de una persona y mostrar a traves de popups no solo la ubicacion de las mismas sino también datos como deuda de cada parcela, deuda total deuda por servicio y demás información que pueda ser relevante como moratorias vigentes, planes de regularización, etc.");
+	alert("Mapa que permitirï¿½a localizar visualmente las propiedadeds a nombre de una persona y mostrar a traves de popups no solo la ubicacion de las mismas sino tambiï¿½n datos como deuda de cada parcela, deuda total deuda por servicio y demï¿½s informaciï¿½n que pueda ser relevante como moratorias vigentes, planes de regularizaciï¿½n, etc.");
 	
 	return false;
 }
 
-function menuGestión(){
+function menuGestion(){
 		
-	alert("Mapa que podría mostrar de manera visual como se está llegando a los diferentes sectores del partido con las distintas obras en curso y proyectadas pudiendo ubicarlas y obtener informaciones como plazo de entrega, descripcion de la obra avisos como 'Precaución: circulación restringida hasta..', estado en el que se encuentra la misma, etc.");
+	alert("Mapa que podrï¿½a mostrar de manera visual como se estï¿½ llegando a los diferentes sectores del partido con las distintas obras en curso y proyectadas pudiendo ubicarlas y obtener informaciones como plazo de entrega, descripcion de la obra avisos como 'Precauciï¿½n: circulaciï¿½n restringida hasta..', estado en el que se encuentra la misma, etc.");
 	
 	return false;
 }
 
 function menuCI(){
 		
-	alert("Mapa que mostraría comercios e industrias con sus datos de contacto y separados por categorías de incumbencias o actividades.");
+	alert("Mapa que mostrarï¿½a comercios e industrias con sus datos de contacto y separados por categorï¿½as de incumbencias o actividades.");
 	
 	return false;
 }
